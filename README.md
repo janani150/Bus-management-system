@@ -128,3 +128,9 @@ bus_detection/
 │   └── js/
 └── uploads/            ← Temp upload dir
 ```
+## screen short
+
+![UI](screenshot/UI.png)
+![BUS IN CAMPUS](screenshot/BUS-IN-CAMPUS.png)
+![BUS OUT CAMPUS](screenshot/BUS-OUT-CAMPUS.png)
+
