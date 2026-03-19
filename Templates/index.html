@@ -7,472 +7,117 @@
 <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&family=Share+Tech+Mono&family=Exo+2:wght@300;400;600;800&display=swap" rel="stylesheet"/>
 <style>
   :root {
-    --bg: #080c10;
-    --surface: #0d1117;
-    --surface2: #161b22;
-    --border: #21262d;
-    --accent: #00e5a0;
-    --accent2: #0099ff;
-    --danger: #ff4757;
-    --warn: #ffa502;
-    --text: #e6edf3;
-    --text-muted: #7d8590;
-    --glow: 0 0 20px rgba(0,229,160,0.3);
-    --glow2: 0 0 20px rgba(0,153,255,0.3);
+    --bg:#080c10;--surface:#0d1117;--surface2:#161b22;--border:#21262d;
+    --accent:#00e5a0;--accent2:#0099ff;--danger:#ff4757;--warn:#ffa502;
+    --text:#e6edf3;--muted:#7d8590;--glow:0 0 20px rgba(0,229,160,0.3);
   }
-
-  * { margin: 0; padding: 0; box-sizing: border-box; }
-
-  body {
-    font-family: 'Exo 2', sans-serif;
-    background: var(--bg);
-    color: var(--text);
-    min-height: 100vh;
-    overflow-x: hidden;
-  }
-
-  /* Animated grid background */
-  body::before {
-    content: '';
-    position: fixed;
-    inset: 0;
-    background-image:
-      linear-gradient(rgba(0,229,160,0.03) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(0,229,160,0.03) 1px, transparent 1px);
-    background-size: 40px 40px;
-    pointer-events: none;
-    z-index: 0;
-  }
-
-  /* ── Header ── */
-  header {
-    position: relative;
-    z-index: 10;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 18px 32px;
-    background: linear-gradient(90deg, rgba(0,229,160,0.06), transparent, rgba(0,153,255,0.06));
-    border-bottom: 1px solid var(--border);
-    backdrop-filter: blur(10px);
-  }
-
-  .logo {
-    display: flex;
-    align-items: center;
-    gap: 14px;
-  }
-
-  .logo-icon {
-    width: 44px; height: 44px;
-    background: linear-gradient(135deg, var(--accent), var(--accent2));
-    border-radius: 10px;
-    display: grid; place-items: center;
-    font-size: 22px;
-    box-shadow: var(--glow);
-  }
-
-  .logo h1 {
-    font-family: 'Rajdhani', sans-serif;
-    font-size: 1.6rem;
-    font-weight: 700;
-    letter-spacing: 2px;
-    color: var(--text);
-  }
-
-  .logo span { color: var(--accent); }
-
-  .header-stats {
-    display: flex; gap: 20px;
-  }
-
-  .stat-pill {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    padding: 6px 16px;
-    border-radius: 20px;
-    font-family: 'Share Tech Mono', monospace;
-    font-size: 0.82rem;
-    border: 1px solid;
-  }
-
-  .stat-pill.green { border-color: var(--accent); color: var(--accent); background: rgba(0,229,160,0.08); }
-  .stat-pill.blue { border-color: var(--accent2); color: var(--accent2); background: rgba(0,153,255,0.08); }
-  .stat-pill.red { border-color: var(--danger); color: var(--danger); background: rgba(255,71,87,0.08); }
-
-  .dot { width: 7px; height: 7px; border-radius: 50%; background: currentColor; animation: pulse 2s infinite; }
-  @keyframes pulse { 0%,100%{opacity:1;} 50%{opacity:0.4;} }
-
-  /* ── Layout ── */
-  main {
-    position: relative;
-    z-index: 1;
-    max-width: 1400px;
-    margin: 0 auto;
-    padding: 28px 24px;
-    display: grid;
-    grid-template-columns: 420px 1fr;
-    gap: 24px;
-  }
-
-  /* ── Upload Panel ── */
-  .upload-panel {
-    display: flex;
-    flex-direction: column;
-    gap: 18px;
-  }
-
-  .card {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 14px;
-    overflow: hidden;
-    transition: border-color 0.2s;
-  }
-
-  .card:hover { border-color: rgba(0,229,160,0.25); }
-
-  .card-header {
-    padding: 14px 20px;
-    background: var(--surface2);
-    border-bottom: 1px solid var(--border);
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    font-family: 'Rajdhani', sans-serif;
-    font-size: 0.9rem;
-    font-weight: 600;
-    letter-spacing: 1.5px;
-    text-transform: uppercase;
-    color: var(--text-muted);
-  }
-
-  .card-header .icon { font-size: 1rem; }
-
-  .card-body { padding: 20px; }
-
-  /* Mode selector */
-  .mode-select {
-    display: flex;
-    gap: 8px;
-    margin-bottom: 16px;
-  }
-
-  .mode-btn {
-    flex: 1;
-    padding: 8px;
-    border-radius: 8px;
-    border: 1px solid var(--border);
-    background: transparent;
-    color: var(--text-muted);
-    cursor: pointer;
-    font-family: 'Exo 2', sans-serif;
-    font-size: 0.8rem;
-    font-weight: 600;
-    transition: all 0.2s;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 5px;
-  }
-
-  .mode-btn.active {
-    border-color: var(--accent);
-    color: var(--accent);
-    background: rgba(0,229,160,0.08);
-  }
-
-  /* Drop zone */
-  .dropzone {
-    border: 2px dashed var(--border);
-    border-radius: 12px;
-    padding: 28px 20px;
-    text-align: center;
-    cursor: pointer;
-    transition: all 0.25s;
-    position: relative;
-  }
-
-  .dropzone:hover, .dropzone.dragover {
-    border-color: var(--accent);
-    background: rgba(0,229,160,0.04);
-  }
-
-  .dropzone input { position: absolute; inset: 0; opacity: 0; cursor: pointer; }
-
-  .drop-icon { font-size: 2.2rem; margin-bottom: 10px; }
-
-  .drop-text {
-    font-size: 0.85rem;
-    color: var(--text-muted);
-    line-height: 1.6;
-  }
-
-  .drop-text strong { color: var(--accent); }
-
-  /* Preview */
-  #preview-wrap {
-    display: none;
-    margin-top: 14px;
-    border-radius: 10px;
-    overflow: hidden;
-    border: 1px solid var(--border);
-    position: relative;
-  }
-
-  #preview-img { width: 100%; display: block; max-height: 220px; object-fit: contain; background: #000; }
-
-  .preview-label {
-    position: absolute;
-    top: 8px; left: 8px;
-    background: rgba(0,0,0,0.7);
-    color: var(--text-muted);
-    font-family: 'Share Tech Mono', monospace;
-    font-size: 0.72rem;
-    padding: 3px 8px;
-    border-radius: 4px;
-  }
-
-  /* Detect button */
-  .detect-btn {
-    width: 100%;
-    padding: 13px;
-    border-radius: 10px;
-    border: none;
-    background: linear-gradient(90deg, var(--accent), #00c87a);
-    color: #000;
-    font-family: 'Rajdhani', sans-serif;
-    font-size: 1rem;
-    font-weight: 700;
-    letter-spacing: 2px;
-    cursor: pointer;
-    transition: all 0.2s;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 8px;
-  }
-
-  .detect-btn:hover { filter: brightness(1.1); transform: translateY(-1px); box-shadow: var(--glow); }
-  .detect-btn:active { transform: none; }
-  .detect-btn:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
-
-  /* Result card */
-  #result-card { display: none; }
-
-  .result-bus-id {
-    font-family: 'Rajdhani', sans-serif;
-    font-size: 2rem;
-    font-weight: 700;
-    color: var(--accent);
-    letter-spacing: 3px;
-    text-shadow: var(--glow);
-    margin-bottom: 12px;
-  }
-
-  .result-row {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 8px 0;
-    border-bottom: 1px solid var(--border);
-    font-size: 0.85rem;
-  }
-
-  .result-row:last-child { border-bottom: none; }
-  .result-row .label { color: var(--text-muted); }
-  .result-row .val { font-family: 'Share Tech Mono', monospace; font-weight: 600; }
-
-  .event-badge {
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    padding: 5px 14px;
-    border-radius: 20px;
-    font-family: 'Rajdhani', sans-serif;
-    font-weight: 700;
-    font-size: 0.9rem;
-    letter-spacing: 1px;
-    margin-top: 12px;
-  }
-
-  .event-badge.IN { background: rgba(0,229,160,0.15); border: 1px solid var(--accent); color: var(--accent); }
-  .event-badge.OUT { background: rgba(255,71,87,0.15); border: 1px solid var(--danger); color: var(--danger); }
-
-  /* Annotated image */
-  #annotated-wrap { display: none; border-radius: 10px; overflow: hidden; border: 1px solid var(--border); margin-top: 12px; }
-  #annotated-img { width: 100%; display: block; max-height: 220px; object-fit: contain; background: #000; }
-
-  /* ── Right panel: Tables ── */
-  .tables-panel { display: flex; flex-direction: column; gap: 20px; }
-
-  .table-tabs { display: flex; gap: 0; border-bottom: 1px solid var(--border); }
-
-  .tab {
-    padding: 12px 24px;
-    cursor: pointer;
-    font-family: 'Rajdhani', sans-serif;
-    font-weight: 600;
-    font-size: 0.9rem;
-    letter-spacing: 1.5px;
-    color: var(--text-muted);
-    border-bottom: 2px solid transparent;
-    transition: all 0.2s;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-  }
-
-  .tab.active.green { color: var(--accent); border-color: var(--accent); }
-  .tab.active.red { color: var(--danger); border-color: var(--danger); }
-
-  .tab .count {
-    font-family: 'Share Tech Mono', monospace;
-    font-size: 0.75rem;
-    background: var(--surface2);
-    padding: 2px 7px;
-    border-radius: 10px;
-    border: 1px solid var(--border);
-  }
-
-  .table-pane { display: none; }
-  .table-pane.active { display: block; }
-
-  /* Table */
-  .data-table {
-    width: 100%;
-    border-collapse: collapse;
-    font-size: 0.85rem;
-  }
-
-  .data-table th {
-    background: var(--surface2);
-    color: var(--text-muted);
-    font-family: 'Rajdhani', sans-serif;
-    font-weight: 600;
-    letter-spacing: 1.2px;
-    font-size: 0.78rem;
-    text-align: left;
-    padding: 11px 14px;
-    text-transform: uppercase;
-    border-bottom: 1px solid var(--border);
-    position: sticky;
-    top: 0;
-    z-index: 5;
-  }
-
-  .data-table td {
-    padding: 11px 14px;
-    border-bottom: 1px solid rgba(33,38,45,0.6);
-    color: var(--text);
-    vertical-align: middle;
-  }
-
-  .data-table tr:hover td { background: rgba(0,229,160,0.03); }
-
-  .data-table .mono { font-family: 'Share Tech Mono', monospace; }
-
-  .bus-id-chip {
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    background: var(--surface2);
-    border: 1px solid var(--border);
-    border-radius: 6px;
-    padding: 3px 10px;
-    font-family: 'Share Tech Mono', monospace;
-    font-size: 0.82rem;
-    font-weight: 700;
-  }
-
-  .bus-id-chip.in { border-color: rgba(0,229,160,0.35); color: var(--accent); }
-  .bus-id-chip.out { border-color: rgba(255,71,87,0.35); color: var(--danger); }
-
-  .time-cell { color: var(--text-muted); font-size: 0.78rem; }
-
-  .table-wrap {
-    overflow-y: auto;
-    max-height: 460px;
-    border-radius: 10px;
-    border: 1px solid var(--border);
-  }
-
-  .empty-state {
-    text-align: center;
-    padding: 50px 20px;
-    color: var(--text-muted);
-  }
-
-  .empty-state .icon { font-size: 2.5rem; margin-bottom: 10px; opacity: 0.4; }
-  .empty-state p { font-size: 0.85rem; }
-
-  /* Action bar */
-  .action-bar {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 12px 0;
-  }
-
-  .refresh-btn {
-    display: flex; align-items: center; gap: 6px;
-    padding: 7px 14px;
-    border-radius: 8px;
-    border: 1px solid var(--border);
-    background: transparent;
-    color: var(--text-muted);
-    cursor: pointer;
-    font-size: 0.8rem;
-    transition: all 0.2s;
-  }
-
-  .refresh-btn:hover { border-color: var(--accent2); color: var(--accent2); }
-
-  .clear-btn {
-    display: flex; align-items: center; gap: 6px;
-    padding: 7px 14px;
-    border-radius: 8px;
-    border: 1px solid rgba(255,71,87,0.3);
-    background: transparent;
-    color: var(--danger);
-    cursor: pointer;
-    font-size: 0.8rem;
-    transition: all 0.2s;
-  }
-
-  .clear-btn:hover { background: rgba(255,71,87,0.08); }
-
-  /* Toast */
-  #toast {
-    position: fixed;
-    bottom: 28px; right: 28px;
-    background: var(--surface2);
-    border: 1px solid var(--border);
-    border-radius: 10px;
-    padding: 12px 20px;
-    display: flex; align-items: center; gap: 10px;
-    font-size: 0.85rem;
-    box-shadow: 0 8px 32px rgba(0,0,0,0.5);
-    z-index: 999;
-    transform: translateY(80px);
-    opacity: 0;
-    transition: all 0.3s ease;
-    max-width: 320px;
-  }
-
-  #toast.show { transform: translateY(0); opacity: 1; }
-  #toast.success { border-color: var(--accent); }
-  #toast.error { border-color: var(--danger); }
-
-  /* Spinner */
-  .spinner { display: inline-block; width: 18px; height: 18px; border: 2px solid rgba(0,0,0,0.3); border-top-color: #000; border-radius: 50%; animation: spin 0.7s linear infinite; }
-  @keyframes spin { to { transform: rotate(360deg); } }
-
-  @media(max-width:900px) {
-    main { grid-template-columns: 1fr; }
-    header { flex-direction: column; gap: 12px; }
-  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  body{font-family:'Exo 2',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;overflow-x:hidden;}
+  body::before{content:'';position:fixed;inset:0;background-image:linear-gradient(rgba(0,229,160,0.03) 1px,transparent 1px),linear-gradient(90deg,rgba(0,229,160,0.03) 1px,transparent 1px);background-size:40px 40px;pointer-events:none;z-index:0;}
+
+  header{position:relative;z-index:10;display:flex;align-items:center;justify-content:space-between;padding:16px 32px;background:linear-gradient(90deg,rgba(0,229,160,0.06),transparent,rgba(0,153,255,0.06));border-bottom:1px solid var(--border);}
+  .logo{display:flex;align-items:center;gap:14px;}
+  .logo-icon{width:44px;height:44px;background:linear-gradient(135deg,var(--accent),var(--accent2));border-radius:10px;display:grid;place-items:center;font-size:22px;box-shadow:var(--glow);}
+  .logo h1{font-family:'Rajdhani',sans-serif;font-size:1.5rem;font-weight:700;letter-spacing:2px;}
+  .logo span{color:var(--accent);}
+  .header-stats{display:flex;gap:16px;}
+  .stat-pill{display:flex;align-items:center;gap:8px;padding:6px 16px;border-radius:20px;font-family:'Share Tech Mono',monospace;font-size:0.82rem;border:1px solid;}
+  .stat-pill.green{border-color:var(--accent);color:var(--accent);background:rgba(0,229,160,0.08);}
+  .stat-pill.red{border-color:var(--danger);color:var(--danger);background:rgba(255,71,87,0.08);}
+  .stat-pill.blue{border-color:var(--accent2);color:var(--accent2);background:rgba(0,153,255,0.08);}
+  .dot{width:7px;height:7px;border-radius:50%;background:currentColor;animation:pulse 2s infinite;}
+  @keyframes pulse{0%,100%{opacity:1}50%{opacity:0.4}}
+
+  main{position:relative;z-index:1;max-width:1400px;margin:0 auto;padding:28px 24px;display:grid;grid-template-columns:460px 1fr;gap:24px;}
+  .left-col{display:flex;flex-direction:column;gap:18px;}
+
+  .card{background:var(--surface);border:1px solid var(--border);border-radius:14px;overflow:hidden;transition:border-color 0.2s;}
+  .card:hover{border-color:rgba(0,229,160,0.2);}
+  .card-header{padding:13px 20px;background:var(--surface2);border-bottom:1px solid var(--border);display:flex;align-items:center;gap:10px;font-family:'Rajdhani',sans-serif;font-size:0.88rem;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);}
+  .card-body{padding:20px;}
+
+  /* Dual upload grid */
+  .upload-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:14px;}
+  .upload-slot{border:2px dashed var(--border);border-radius:12px;padding:20px 12px;text-align:center;cursor:pointer;transition:all 0.25s;position:relative;}
+  .upload-slot:hover,.upload-slot.dragover{border-color:var(--accent);background:rgba(0,229,160,0.04);}
+  .upload-slot.has-file{border-style:solid;border-color:rgba(0,229,160,0.45);}
+  .upload-slot input{position:absolute;inset:0;opacity:0;cursor:pointer;width:100%;height:100%;}
+  .slot-icon{font-size:2rem;margin-bottom:8px;}
+  .slot-label{font-family:'Rajdhani',sans-serif;font-weight:700;font-size:0.9rem;letter-spacing:1.5px;margin-bottom:4px;}
+  .front-label{color:var(--accent2);}
+  .rear-label{color:var(--accent);}
+  .slot-hint{font-size:0.72rem;color:var(--muted);line-height:1.5;}
+
+  .thumb-row{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:14px;}
+  .thumb-wrap{display:none;border-radius:8px;overflow:hidden;border:1px solid var(--border);position:relative;}
+  .thumb-wrap img{width:100%;height:115px;object-fit:cover;display:block;background:#000;}
+  .thumb-tag{position:absolute;top:6px;left:6px;font-family:'Share Tech Mono',monospace;font-size:0.65rem;padding:2px 7px;border-radius:4px;}
+  .thumb-tag.front{background:rgba(0,153,255,0.85);color:#fff;}
+  .thumb-tag.rear{background:rgba(0,229,160,0.85);color:#000;}
+
+  .detect-btn{width:100%;padding:14px;border-radius:10px;border:none;background:linear-gradient(90deg,var(--accent),#00c87a);color:#000;font-family:'Rajdhani',sans-serif;font-size:1.05rem;font-weight:700;letter-spacing:2px;cursor:pointer;transition:all 0.2s;display:flex;align-items:center;justify-content:center;gap:8px;}
+  .detect-btn:hover:not(:disabled){filter:brightness(1.1);transform:translateY(-1px);box-shadow:var(--glow);}
+  .detect-btn:disabled{opacity:0.45;cursor:not-allowed;transform:none;}
+
+  /* Steps */
+  .steps{display:flex;flex-direction:column;gap:9px;}
+  .step{display:flex;align-items:flex-start;gap:12px;padding:9px 12px;border-radius:8px;background:var(--surface2);border:1px solid var(--border);font-size:0.82rem;}
+  .step-num{font-family:'Share Tech Mono',monospace;font-size:0.75rem;color:var(--accent);background:rgba(0,229,160,0.1);border:1px solid rgba(0,229,160,0.25);border-radius:50%;width:22px;height:22px;display:grid;place-items:center;flex-shrink:0;}
+  .step-text{line-height:1.5;color:var(--muted);}
+  .step-text strong{color:var(--text);}
+
+  /* Result */
+  #result-card{display:none;}
+  .result-bus-id{font-family:'Rajdhani',sans-serif;font-size:2.2rem;font-weight:700;color:var(--accent);letter-spacing:4px;text-shadow:var(--glow);margin-bottom:14px;}
+  .result-row{display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:1px solid var(--border);font-size:0.85rem;}
+  .result-row:last-child{border-bottom:none;}
+  .result-row .label{color:var(--muted);}
+  .result-row .val{font-family:'Share Tech Mono',monospace;font-weight:600;}
+  .event-badge{display:inline-flex;align-items:center;gap:6px;padding:5px 16px;border-radius:20px;font-family:'Rajdhani',sans-serif;font-weight:700;font-size:0.95rem;letter-spacing:1px;margin-top:14px;}
+  .event-badge.IN{background:rgba(0,229,160,0.15);border:1px solid var(--accent);color:var(--accent);}
+  .event-badge.OUT{background:rgba(255,71,87,0.15);border:1px solid var(--danger);color:var(--danger);}
+  .anno-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:14px;}
+  .anno-wrap{display:none;border-radius:8px;overflow:hidden;border:1px solid var(--border);position:relative;}
+  .anno-wrap img{width:100%;display:block;max-height:150px;object-fit:contain;background:#000;}
+  .anno-tag{position:absolute;bottom:6px;left:6px;font-family:'Share Tech Mono',monospace;font-size:0.65rem;padding:2px 7px;border-radius:4px;}
+  .anno-tag.front{background:rgba(0,153,255,0.85);color:#fff;}
+  .anno-tag.rear{background:rgba(0,229,160,0.85);color:#000;}
+
+  /* Tables */
+  .tables-panel{display:flex;flex-direction:column;gap:20px;}
+  .table-tabs{display:flex;border-bottom:1px solid var(--border);}
+  .tab{padding:12px 24px;cursor:pointer;font-family:'Rajdhani',sans-serif;font-weight:600;font-size:0.88rem;letter-spacing:1.5px;color:var(--muted);border-bottom:2px solid transparent;transition:all 0.2s;display:flex;align-items:center;gap:8px;}
+  .tab.active.green{color:var(--accent);border-color:var(--accent);}
+  .tab.active.red{color:var(--danger);border-color:var(--danger);}
+  .tab .count{font-family:'Share Tech Mono',monospace;font-size:0.75rem;background:var(--surface2);padding:2px 7px;border-radius:10px;border:1px solid var(--border);}
+  .table-pane{display:none;}
+  .table-pane.active{display:block;}
+  .table-wrap{overflow-y:auto;max-height:450px;border-radius:10px;border:1px solid var(--border);}
+  .data-table{width:100%;border-collapse:collapse;font-size:0.84rem;}
+  .data-table th{background:var(--surface2);color:var(--muted);font-family:'Rajdhani',sans-serif;font-weight:600;letter-spacing:1.2px;font-size:0.77rem;text-align:left;padding:11px 14px;text-transform:uppercase;border-bottom:1px solid var(--border);position:sticky;top:0;z-index:5;}
+  .data-table td{padding:11px 14px;border-bottom:1px solid rgba(33,38,45,0.6);color:var(--text);vertical-align:middle;}
+  .data-table tr:hover td{background:rgba(0,229,160,0.03);}
+  .bus-chip{display:inline-flex;align-items:center;gap:6px;background:var(--surface2);border:1px solid var(--border);border-radius:6px;padding:3px 10px;font-family:'Share Tech Mono',monospace;font-size:0.82rem;font-weight:700;}
+  .bus-chip.in{border-color:rgba(0,229,160,0.35);color:var(--accent);}
+  .bus-chip.out{border-color:rgba(255,71,87,0.35);color:var(--danger);}
+  .mono{font-family:'Share Tech Mono',monospace;}
+  .muted-text{color:var(--muted);font-size:0.78rem;}
+  .empty-state{text-align:center;padding:50px 20px;color:var(--muted);}
+  .empty-state .icon{font-size:2.5rem;margin-bottom:10px;opacity:0.4;}
+  .action-bar{display:flex;align-items:center;justify-content:space-between;padding:12px 0;}
+  .refresh-btn{display:flex;align-items:center;gap:6px;padding:7px 14px;border-radius:8px;border:1px solid var(--border);background:transparent;color:var(--muted);cursor:pointer;font-size:0.8rem;transition:all 0.2s;}
+  .refresh-btn:hover{border-color:var(--accent2);color:var(--accent2);}
+  .clear-btn{display:flex;align-items:center;gap:6px;padding:7px 14px;border-radius:8px;border:1px solid rgba(255,71,87,0.3);background:transparent;color:var(--danger);cursor:pointer;font-size:0.8rem;transition:all 0.2s;}
+  .clear-btn:hover{background:rgba(255,71,87,0.08);}
+
+  #toast{position:fixed;bottom:24px;right:24px;background:var(--surface2);border:1px solid var(--border);border-radius:10px;padding:12px 20px;display:flex;align-items:center;gap:10px;font-size:0.85rem;max-width:340px;box-shadow:0 8px 32px rgba(0,0,0,0.5);z-index:999;transform:translateY(80px);opacity:0;transition:all 0.3s ease;}
+  #toast.show{transform:translateY(0);opacity:1;}
+  #toast.success{border-color:var(--accent);}
+  #toast.error{border-color:var(--danger);}
+  .spinner{display:inline-block;width:18px;height:18px;border:2px solid rgba(0,0,0,0.3);border-top-color:#000;border-radius:50%;animation:spin 0.7s linear infinite;}
+  @keyframes spin{to{transform:rotate(360deg);}}
+
+  @media(max-width:960px){main{grid-template-columns:1fr;}header{flex-direction:column;gap:12px;align-items:flex-start;}}
 </style>
 </head>
 <body>
@@ -490,74 +135,72 @@
 </header>
 
 <main>
-  <!-- LEFT: Upload -->
-  <div class="upload-panel">
+  <div class="left-col">
 
+    <!-- Upload Card -->
     <div class="card">
-      <div class="card-header"><span class="icon">📷</span> DETECT BUS</div>
+      <div class="card-header">📷 UPLOAD BUS PHOTOS</div>
       <div class="card-body">
+        <!-- Hidden inputs outside slots so browser keeps full file access -->
+        <input type="file" id="file-front" accept="image/*" style="display:none"/>
+        <input type="file" id="file-rear"  accept="image/*" style="display:none"/>
 
-        <div class="mode-select">
-          <button class="mode-btn active" data-mode="auto">🔄 Auto</button>
-          <button class="mode-btn" data-mode="plate">🔡 Plate (Rear)</button>
-          <button class="mode-btn" data-mode="number">🔢 Number (Front)</button>
+        <div class="upload-grid">
+          <label class="upload-slot" id="slot-front" for="file-front">
+            <div class="slot-icon">🚌</div>
+            <div class="slot-label front-label">FRONT PHOTO</div>
+            <div class="slot-hint">Bus route number<br>(front face of bus)</div>
+          </label>
+          <label class="upload-slot" id="slot-rear" for="file-rear">
+            <div class="slot-icon">🔡</div>
+            <div class="slot-label rear-label">REAR PHOTO</div>
+            <div class="slot-hint">Number plate<br>(back of bus)</div>
+          </label>
         </div>
 
-        <div class="dropzone" id="dropzone">
-          <input type="file" id="file-input" accept="image/*"/>
-          <div class="drop-icon">🖼️</div>
-          <div class="drop-text">
-            <strong>Click or drag</strong> an image here<br>
-            Supports JPG, PNG, WEBP
+        <div class="thumb-row">
+          <div class="thumb-wrap" id="thumb-front">
+            <img id="img-front" alt="Front preview"/>
+            <div class="thumb-tag front">FRONT</div>
+          </div>
+          <div class="thumb-wrap" id="thumb-rear">
+            <img id="img-rear" alt="Rear preview"/>
+            <div class="thumb-tag rear">REAR</div>
           </div>
         </div>
 
-        <div id="preview-wrap">
-          <img id="preview-img" alt="Preview"/>
-          <div class="preview-label">ORIGINAL</div>
-        </div>
-
-        <br/>
         <button class="detect-btn" id="detect-btn" disabled>
-          🔍 SCAN &amp; DETECT
+          🔍 &nbsp;SCAN BOTH PHOTOS
         </button>
+      </div>
+    </div>
+
+    <!-- How it works -->
+    <div class="card">
+      <div class="card-header">💡 HOW IT WORKS</div>
+      <div class="card-body">
+        <div class="steps">
+          <div class="step"><div class="step-num">1</div><div class="step-text">Upload <strong>Front photo</strong> → detects route number e.g. <span style="color:var(--warn);font-family:monospace">2</span></div></div>
+          <div class="step"><div class="step-num">2</div><div class="step-text">Upload <strong>Rear photo</strong> → detects number plate e.g. <span style="color:var(--accent);font-family:monospace">TN9846</span></div></div>
+          <div class="step"><div class="step-num">3</div><div class="step-text">Combined into Bus ID → <span style="color:var(--accent);font-family:monospace;font-weight:700">TN9846-2</span></div></div>
+          <div class="step"><div class="step-num">4</div><div class="step-text"><strong>1st scan</strong> = 🟢 IN Campus &nbsp;|&nbsp; <strong>2nd scan</strong> = 🔴 OUT Campus</div></div>
+        </div>
       </div>
     </div>
 
     <!-- Result -->
     <div class="card" id="result-card">
-      <div class="card-header"><span class="icon">✅</span> DETECTION RESULT</div>
+      <div class="card-header">✅ DETECTION RESULT</div>
       <div class="card-body">
         <div class="result-bus-id" id="res-bus-id">—</div>
-        <div class="result-row">
-          <span class="label">Number Plate</span>
-          <span class="val" id="res-plate">—</span>
+        <div class="result-row"><span class="label">Number Plate</span><span class="val" id="res-plate">—</span></div>
+        <div class="result-row"><span class="label">Bus Route No.</span><span class="val" id="res-busnum">—</span></div>
+        <div class="result-row"><span class="label">Status</span><span id="res-event-wrap">—</span></div>
+        <div id="res-message" style="font-size:0.78rem;color:var(--muted);margin-top:8px;"></div>
+        <div class="anno-grid">
+          <div class="anno-wrap" id="anno-front"><img id="anno-img-front" alt=""/><div class="anno-tag front">FRONT</div></div>
+          <div class="anno-wrap" id="anno-rear"><img id="anno-img-rear" alt=""/><div class="anno-tag rear">REAR</div></div>
         </div>
-        <div class="result-row">
-          <span class="label">Bus Number</span>
-          <span class="val" id="res-busnum">—</span>
-        </div>
-        <div class="result-row">
-          <span class="label">Event</span>
-          <span class="val" id="res-event-wrap">—</span>
-        </div>
-        <div id="annotated-wrap">
-          <img id="annotated-img" alt="Annotated"/>
-        </div>
-      </div>
-    </div>
-
-    <!-- Format info -->
-    <div class="card">
-      <div class="card-header"><span class="icon">ℹ️</span> FORMAT GUIDE</div>
-      <div class="card-body" style="font-size:0.82rem;color:var(--text-muted);line-height:1.8">
-        <p style="font-family:'Share Tech Mono',monospace;font-size:1rem;color:var(--accent);margin-bottom:10px">TN9846-2</p>
-        <p><strong style="color:var(--text)">TN9846</strong> — Number plate (detected from <em>rear</em>)</p>
-        <p><strong style="color:var(--text)">2</strong> — Bus route number (detected from <em>front</em>)</p>
-        <br/>
-        <p>• 1st scan → <span style="color:var(--accent)">BUS IN CAMPUS</span></p>
-        <p>• 2nd scan → <span style="color:var(--danger)">BUS OUT CAMPUS</span></p>
-        <p>• 3rd scan → <span style="color:var(--accent)">BUS IN CAMPUS</span> (cycles)</p>
       </div>
     </div>
 
@@ -565,249 +208,185 @@
 
   <!-- RIGHT: Tables -->
   <div class="tables-panel">
-
-    <div class="card" style="flex:1">
-      <div class="card-header" style="padding:0">
+    <div class="card">
+      <div class="card-header" style="padding:0;">
         <div class="table-tabs">
-          <div class="tab active green" data-tab="in">
-            🟢 BUS IN CAMPUS
-            <span class="count" id="count-in">0</span>
-          </div>
-          <div class="tab red" data-tab="out">
-            🔴 BUS OUT CAMPUS
-            <span class="count" id="count-out">0</span>
-          </div>
+          <div class="tab active green" data-tab="in">🟢 BUS IN CAMPUS <span class="count" id="count-in">0</span></div>
+          <div class="tab red" data-tab="out">🔴 BUS OUT CAMPUS <span class="count" id="count-out">0</span></div>
         </div>
       </div>
-
-      <div class="card-body" style="padding:14px 16px">
+      <div class="card-body" style="padding:12px 16px;">
         <div class="action-bar">
           <button class="refresh-btn" onclick="loadTables()">↻ Refresh</button>
-          <button class="clear-btn" onclick="clearAll()">🗑 Clear All Records</button>
+          <button class="clear-btn" onclick="clearAll()">🗑 Clear All</button>
         </div>
-
-        <!-- IN table -->
         <div class="table-pane active" id="pane-in">
           <div class="table-wrap">
-            <table class="data-table" id="table-in">
-              <thead>
-                <tr>
-                  <th>#</th>
-                  <th>BUS ID</th>
-                  <th>PLATE</th>
-                  <th>ROUTE</th>
-                  <th>TIME</th>
-                  <th>DATE</th>
-                </tr>
-              </thead>
-              <tbody id="tbody-in">
-                <tr><td colspan="6"><div class="empty-state"><div class="icon">🚏</div><p>No buses recorded yet</p></div></td></tr>
-              </tbody>
+            <table class="data-table">
+              <thead><tr><th>#</th><th>BUS ID</th><th>PLATE</th><th>ROUTE</th><th>TIME</th><th>DATE</th></tr></thead>
+              <tbody id="tbody-in"><tr><td colspan="6"><div class="empty-state"><div class="icon">🚏</div><p>No buses recorded yet</p></div></td></tr></tbody>
             </table>
           </div>
         </div>
-
-        <!-- OUT table -->
         <div class="table-pane" id="pane-out">
           <div class="table-wrap">
-            <table class="data-table" id="table-out">
-              <thead>
-                <tr>
-                  <th>#</th>
-                  <th>BUS ID</th>
-                  <th>PLATE</th>
-                  <th>ROUTE</th>
-                  <th>TIME</th>
-                  <th>DATE</th>
-                </tr>
-              </thead>
-              <tbody id="tbody-out">
-                <tr><td colspan="6"><div class="empty-state"><div class="icon">🚌</div><p>No buses exited yet</p></div></td></tr>
-              </tbody>
+            <table class="data-table">
+              <thead><tr><th>#</th><th>BUS ID</th><th>PLATE</th><th>ROUTE</th><th>TIME</th><th>DATE</th></tr></thead>
+              <tbody id="tbody-out"><tr><td colspan="6"><div class="empty-state"><div class="icon">🚌</div><p>No buses exited yet</p></div></td></tr></tbody>
             </table>
           </div>
         </div>
       </div>
     </div>
-
   </div>
 </main>
 
-<!-- Toast -->
 <div id="toast"></div>
 
 <script>
-// ── State ──
-let selectedFile = null;
-let selectedMode = 'auto';
-
-// ── Mode buttons ──
-document.querySelectorAll('.mode-btn').forEach(btn => {
-  btn.addEventListener('click', () => {
-    document.querySelectorAll('.mode-btn').forEach(b => b.classList.remove('active'));
-    btn.classList.add('active');
-    selectedMode = btn.dataset.mode;
+// Simple: read directly from input.files at scan time — most reliable approach
+function setupPreview(inputId, slotId, thumbWrapId, imgPreviewId) {
+  const input = document.getElementById(inputId);
+  const slot  = document.getElementById(slotId);
+  const wrap  = document.getElementById(thumbWrapId);
+  const img   = document.getElementById(imgPreviewId);
+  input.addEventListener('change', () => {
+    const file = input.files[0];
+    if (!file) return;
+    img.src = URL.createObjectURL(file);
+    wrap.style.display = 'block';
+    slot.classList.add('has-file');
+    checkReady();
   });
-});
-
-// ── File input ──
-const fileInput = document.getElementById('file-input');
-const dropzone = document.getElementById('dropzone');
-const previewWrap = document.getElementById('preview-wrap');
-const previewImg = document.getElementById('preview-img');
-const detectBtn = document.getElementById('detect-btn');
-
-fileInput.addEventListener('change', e => {
-  const file = e.target.files[0];
-  if (file) handleFile(file);
-});
-
-dropzone.addEventListener('dragover', e => { e.preventDefault(); dropzone.classList.add('dragover'); });
-dropzone.addEventListener('dragleave', () => dropzone.classList.remove('dragover'));
-dropzone.addEventListener('drop', e => {
-  e.preventDefault();
-  dropzone.classList.remove('dragover');
-  const file = e.dataTransfer.files[0];
-  if (file) handleFile(file);
-});
-
-function handleFile(file) {
-  selectedFile = file;
-  const url = URL.createObjectURL(file);
-  previewImg.src = url;
-  previewWrap.style.display = 'block';
-  detectBtn.disabled = false;
 }
 
-// ── Detect ──
-detectBtn.addEventListener('click', async () => {
-  if (!selectedFile) return;
-  detectBtn.disabled = true;
-  detectBtn.innerHTML = '<div class="spinner"></div> SCANNING...';
+setupPreview('file-front','slot-front','thumb-front','img-front');
+setupPreview('file-rear', 'slot-rear', 'thumb-rear', 'img-rear');
+
+function checkReady() {
+  const hasFront = document.getElementById('file-front').files.length > 0;
+  const hasRear  = document.getElementById('file-rear').files.length  > 0;
+  document.getElementById('detect-btn').disabled = !(hasFront || hasRear);
+}
+
+document.getElementById('detect-btn').addEventListener('click', async () => {
+  const btn       = document.getElementById('detect-btn');
+  const frontFile = document.getElementById('file-front').files[0] || null;
+  const rearFile  = document.getElementById('file-rear').files[0]  || null;
+
+  if (!frontFile && !rearFile) {
+    showToast('❌ Please select at least one photo first.', 'error');
+    return;
+  }
+
+  btn.disabled = true;
+  btn.innerHTML = '<div class="spinner"></div>&nbsp; SCANNING...';
 
   const fd = new FormData();
-  fd.append('file', selectedFile);
-  fd.append('mode', selectedMode);
+  if (frontFile) fd.append('front', frontFile, frontFile.name);
+  if (rearFile)  fd.append('rear',  rearFile,  rearFile.name);
 
   try {
-    const res = await fetch('/upload', { method: 'POST', body: fd });
+    const res  = await fetch('/upload', { method: 'POST', body: fd });
     const data = await res.json();
-
-    if (data.error) {
-      showToast('❌ ' + data.error, 'error');
-    } else {
-      showResult(data);
-      loadTables();
-      loadStats();
-    }
-  } catch (err) {
+    if (data.error) showToast('❌ ' + data.error, 'error');
+    else { showResult(data); loadTables(); loadStats(); }
+  } catch(e) {
     showToast('❌ Network error. Is Flask running?', 'error');
   } finally {
-    detectBtn.disabled = false;
-    detectBtn.innerHTML = '🔍 SCAN &amp; DETECT';
+    btn.disabled = false;
+    btn.innerHTML = '🔍 &nbsp;SCAN BOTH PHOTOS';
+    checkReady();
   }
 });
 
-function showResult(data) {
-  const card = document.getElementById('result-card');
-  card.style.display = 'block';
-
-  document.getElementById('res-bus-id').textContent = data.bus_id || '—';
-  document.getElementById('res-plate').textContent = data.number_plate || 'Not detected';
-  document.getElementById('res-busnum').textContent = data.bus_number || 'Not detected';
+function showResult(d) {
+  document.getElementById('result-card').style.display = 'block';
+  document.getElementById('res-bus-id').textContent  = d.bus_id       || '—';
+  document.getElementById('res-plate').textContent   = d.number_plate || 'Not detected';
+  document.getElementById('res-busnum').textContent  = d.bus_number   || 'Not detected';
+  document.getElementById('res-message').textContent = d.message      || '';
 
   const evWrap = document.getElementById('res-event-wrap');
-  if (data.event) {
-    evWrap.innerHTML = `<span class="event-badge ${data.event}">
-      ${data.event === 'IN' ? '🟢 ENTERED CAMPUS' : '🔴 EXITED CAMPUS'}
-    </span>`;
-  } else {
-    evWrap.textContent = 'N/A';
+  evWrap.innerHTML = d.event
+    ? `<span class="event-badge ${d.event}">${d.event==='IN'?'🟢 ENTERED CAMPUS':'🔴 EXITED CAMPUS'}</span>`
+    : '—';
+
+  if (d.front_annotated) {
+    document.getElementById('anno-img-front').src = 'data:image/jpeg;base64,' + d.front_annotated;
+    document.getElementById('anno-front').style.display = 'block';
+  }
+  if (d.rear_annotated) {
+    document.getElementById('anno-img-rear').src = 'data:image/jpeg;base64,' + d.rear_annotated;
+    document.getElementById('anno-rear').style.display = 'block';
   }
 
-  if (data.annotated_image) {
-    document.getElementById('annotated-img').src = 'data:image/jpeg;base64,' + data.annotated_image;
-    document.getElementById('annotated-wrap').style.display = 'block';
-  }
-
-  showToast((data.event === 'IN' ? '🟢 ' : '🔴 ') + (data.message || 'Done'), data.success ? 'success' : 'error');
+  showToast((d.event==='IN'?'🟢 ':'🔴 ') + (d.message||'Done'), d.success?'success':'error');
 }
 
-// ── Tabs ──
 document.querySelectorAll('.tab').forEach(tab => {
   tab.addEventListener('click', () => {
-    const t = tab.dataset.tab;
-    document.querySelectorAll('.tab').forEach(x => x.classList.remove('active'));
-    document.querySelectorAll('.table-pane').forEach(x => x.classList.remove('active'));
+    document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+    document.querySelectorAll('.table-pane').forEach(p => p.classList.remove('active'));
     tab.classList.add('active');
-    document.getElementById('pane-' + t).classList.add('active');
+    document.getElementById('pane-' + tab.dataset.tab).classList.add('active');
   });
 });
 
-// ── Load tables ──
 async function loadTables() {
-  const [inData, outData] = await Promise.all([
-    fetch('/api/bus_in').then(r => r.json()),
-    fetch('/api/bus_out').then(r => r.json())
+  const [inD, outD] = await Promise.all([
+    fetch('/api/bus_in').then(r=>r.json()),
+    fetch('/api/bus_out').then(r=>r.json())
   ]);
-
-  document.getElementById('count-in').textContent = inData.length;
-  document.getElementById('count-out').textContent = outData.length;
-
-  renderTable('tbody-in', inData, 'in');
-  renderTable('tbody-out', outData, 'out');
+  document.getElementById('count-in').textContent  = inD.length;
+  document.getElementById('count-out').textContent = outD.length;
+  renderTable('tbody-in',  inD,  'in');
+  renderTable('tbody-out', outD, 'out');
 }
 
 function renderTable(tbodyId, rows, type) {
   const tbody = document.getElementById(tbodyId);
   if (!rows.length) {
-    tbody.innerHTML = `<tr><td colspan="6"><div class="empty-state">
-      <div class="icon">${type === 'in' ? '🚏' : '🚌'}</div>
-      <p>No records yet</p>
-    </div></td></tr>`;
+    tbody.innerHTML = `<tr><td colspan="6"><div class="empty-state"><div class="icon">${type==='in'?'🚏':'🚌'}</div><p>No records yet</p></div></td></tr>`;
     return;
   }
-  tbody.innerHTML = rows.map((r, i) => `
+  const tKey = type==='in'?'entry_time':'exit_time';
+  const dKey = type==='in'?'entry_date':'exit_date';
+  tbody.innerHTML = rows.map((r,i)=>`
     <tr>
-      <td class="mono" style="color:var(--text-muted)">${i + 1}</td>
-      <td><span class="bus-id-chip ${type}">${r.bus_id}</span></td>
+      <td class="mono muted-text">${i+1}</td>
+      <td><span class="bus-chip ${type}">${r.bus_id}</span></td>
       <td class="mono">${r.number_plate}</td>
       <td class="mono" style="color:var(--warn)">${r.bus_number}</td>
-      <td class="time-cell">${type === 'in' ? r.entry_time : r.exit_time}</td>
-      <td class="time-cell">${type === 'in' ? r.entry_date : r.exit_date}</td>
-    </tr>
-  `).join('');
+      <td class="muted-text">${r[tKey]}</td>
+      <td class="muted-text">${r[dKey]}</td>
+    </tr>`).join('');
 }
 
 async function loadStats() {
-  const s = await fetch('/api/stats').then(r => r.json());
-  document.getElementById('stat-in').textContent = s.total_in + ' IN';
-  document.getElementById('stat-out').textContent = s.total_out + ' OUT';
+  const s = await fetch('/api/stats').then(r=>r.json());
+  document.getElementById('stat-in').textContent  = s.total_in    + ' IN';
+  document.getElementById('stat-out').textContent = s.total_out   + ' OUT';
   document.getElementById('stat-now').textContent = s.currently_in + ' ON CAMPUS';
 }
 
 async function clearAll() {
   if (!confirm('Clear ALL bus records? This cannot be undone.')) return;
-  await fetch('/api/clear', { method: 'POST' });
-  loadTables();
-  loadStats();
+  await fetch('/api/clear', {method:'POST'});
+  loadTables(); loadStats();
   showToast('🗑 All records cleared.', 'success');
 }
 
-// ── Toast ──
 let toastTimer;
-function showToast(msg, type = 'success') {
+function showToast(msg, type='success') {
   const t = document.getElementById('toast');
-  t.textContent = msg;
-  t.className = 'show ' + type;
+  t.textContent = msg; t.className = 'show ' + type;
   clearTimeout(toastTimer);
-  toastTimer = setTimeout(() => { t.className = ''; }, 3500);
+  toastTimer = setTimeout(()=>{ t.className=''; }, 3500);
 }
 
-// ── Init ──
-loadTables();
-loadStats();
-setInterval(() => { loadTables(); loadStats(); }, 10000);
+loadTables(); loadStats();
+setInterval(()=>{ loadTables(); loadStats(); }, 10000);
 </script>
 </body>
 </html>
